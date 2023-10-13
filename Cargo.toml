@@ -2,6 +2,10 @@
 name = "typed-id"
 version = "0.1.0"
 edition = "2021"
+description = "typed ID for Rust"
+license-file = "LICENSE"
+keywords = ["type", "id"]
+repository = "https://github.com/cjwcommuny/typed-id"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
