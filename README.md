@@ -1,4 +1,4 @@
-# typed-id
+# typed_id2
 
 ## Usage
 

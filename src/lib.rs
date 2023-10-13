@@ -3,7 +3,7 @@ use std::marker::PhantomData;
 
 /// Usage:
 /// ```rust
-/// use typed_id::Id;
+/// use typed_id2::Id;
 ///
 /// struct Customer {
 ///     name: String,
