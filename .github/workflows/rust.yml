@@ -16,6 +16,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: typos-action
+      uses: crate-ci/typos@v1.0.4
+    - uses: dtolnay/rust-toolchain@stable
+      with:
+        components: rustfmt
+    - uses: mbrobbel/rustfmt-check@master
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - run: rustup component add clippy
+    - uses: actions-rs/clippy-check@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        args: --all-features
     - name: Build
       run: cargo build --verbose
     - name: Run tests
