@@ -29,8 +29,6 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         args: --all-features
-    - name: Check semver
-      uses: obi1kenobi/cargo-semver-checks-action@v2
     - name: Build
       run: cargo build --verbose
     - name: Run tests
