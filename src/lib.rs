@@ -1,6 +1,17 @@
 use std::fmt::{Debug, Formatter};
 use std::marker::PhantomData;
 
+/// Usage:
+/// ```rust
+/// use typed_id::Id;
+///
+/// struct Customer {
+///     name: String,
+/// }
+/// type CustomerId = Id<i32, Customer>;
+///
+/// let customer_id = CustomerId::new(1);
+/// ```
 pub struct Id<I, T> {
     id: I,
     phantom: PhantomData<fn() -> T>,
