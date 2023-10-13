@@ -1,5 +1,5 @@
 [package]
-name = "typed_id"
+name = "typed_id2"
 version = "0.1.2"
 edition = "2021"
 description = "typed ID for Rust"
