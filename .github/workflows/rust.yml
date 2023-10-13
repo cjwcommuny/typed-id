@@ -10,26 +10,51 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  typos:
+    name: typos
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: typos-action
+        uses: crate-ci/typos@v1.0.4
 
+  fmt:
+    name: fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - uses: mbrobbel/rustfmt-check@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  clippy:
+    name: clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: rustup component add clippy
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
+
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: typos-action
-      uses: crate-ci/typos@v1.0.4
-    - uses: dtolnay/rust-toolchain@stable
-      with:
-        components: rustfmt
-    - uses: mbrobbel/rustfmt-check@master
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - run: rustup component add clippy
-    - uses: actions-rs/clippy-check@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        args: --all-features
+    - uses: Swatinem/rust-cache@v2
     - name: Build
       run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: cargo test --verbose
